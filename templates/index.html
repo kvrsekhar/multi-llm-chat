@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Multi-LLM Chat</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+  <!-- ── Header ─────────────────────────────────── -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text">MultiMind</span>
+      </div>
+      <div class="header-meta">Ask once · Compare all · Choose yours</div>
+    </div>
+  </header>
+
+  <!-- ── Main App ───────────────────────────────── -->
+  <main class="app-shell">
+
+    <!-- ── Phase 1: Side-by-side comparison panel ── -->
+    <section id="compare-phase" class="phase active">
+
+      <!-- Model badges row -->
+      <div class="model-badges">
+        <div class="badge badge-openai">GPT-4o</div>
+        <div class="badge badge-claude">Claude 3.5</div>
+        <div class="badge badge-gemini">Gemini 1.5</div>
+      </div>
+
+      <!-- Answer columns -->
+      <div id="answer-grid" class="answer-grid hidden">
+        <!-- Dynamically populated by JS -->
+      </div>
+
+      <!-- Empty state / prompt area -->
+      <div id="empty-state" class="empty-state">
+        <div class="empty-graphic">
+          <div class="orb orb-1"></div>
+          <div class="orb orb-2"></div>
+          <div class="orb orb-3"></div>
+          <div class="orb-label">3 minds, 1 question</div>
+        </div>
+        <p class="empty-hint">Type a question below — all three AIs will answer simultaneously.</p>
+      </div>
+
+      <!-- Loading state -->
+      <div id="loading-state" class="loading-state hidden">
+        <div class="loading-row">
+          <div class="spinner spinner-openai"></div>
+          <div class="spinner spinner-claude"></div>
+          <div class="spinner spinner-gemini"></div>
+        </div>
+        <p class="loading-text">Querying all models in parallel…</p>
+      </div>
+
+    </section>
+
+    <!-- ── Phase 2: Single-model chat ─────────────── -->
+    <section id="chat-phase" class="phase hidden">
+      <div class="chat-header">
+        <button id="back-btn" class="back-btn">← Compare again</button>
+        <div id="chosen-model-badge" class="chosen-badge"></div>
+        <span class="chat-subtitle">Continuing conversation…</span>
+      </div>
+
+      <div id="chat-messages" class="chat-messages"></div>
+    </section>
+
+  </main>
+
+  <!-- ── Bottom Input Bar ───────────────────────── -->
+  <div class="input-bar">
+    <div class="input-inner">
+      <textarea
+        id="user-input"
+        class="user-input"
+        placeholder="Ask anything…"
+        rows="1"
+        autofocus
+      ></textarea>
+      <button id="send-btn" class="send-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
