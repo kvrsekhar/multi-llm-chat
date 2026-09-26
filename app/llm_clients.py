@@ -1,6 +1,6 @@
 """
 LLM Clients Module
-Handles communication with OpenAI, Anthropic (Claude), and Google Gemini APIs.
+Handles communication with OpenAI, Anthropic (Deepseek), and Google Gemini APIs.
 Each client function is independent - easy to add or remove models.
 """
 
@@ -11,19 +11,19 @@ from typing import List, Dict, Any
 # ─── Model Configuration ────────────────────────────────────────────────────
 # Add or remove models from this dict to control which LLMs appear in the UI
 AVAILABLE_MODELS = {
+    "deepseek": {
+        "label": "Deepseek",
+        "color": "#D97757",          #  Deepseek orange
+        "icon": "🟠",
+    },
     "openai": {
         "label": "GPT-4o",
         "color": "#10A37F",          # OpenAI green
         "icon": "🟢",
     },
-    "claude": {
-        "label": "Claude 3.5 Sonnet",
-        "color": "#D97757",          # Anthropic orange
-        "icon": "🟠",
-    },
     "gemini": {
         "label": "Gemini 1.5 Flash",
-        "color": "#4285F4",          # Google blue
+        "color": "#4285F4",          # Gemini blue
         "icon": "🔵",
     },
 }
@@ -64,27 +64,38 @@ def call_openai(history: List[Dict], user_message: str) -> str:
         return f"❌ OpenAI Error: {str(e)}"
 
 
-def call_claude(history: List[Dict], user_message: str) -> str:
-    """Call Anthropic Claude API."""
+def call_deepseek(history: List[Dict], user_message: str) -> str:
+    """Call Anthropic API."""
     try:
         import anthropic  # pip install anthropic
-
-        api_key = os.environ.get("ANTHROPIC_API_KEY")
+        
+        api_key = os.environ.get("DEEPSEEK_API_KEY")
         if not api_key:
-            return "⚠️  ANTHROPIC_API_KEY not set in .env file."
+            return "⚠️  DEEPSEEK_API_KEY not set in .env file."
 
-        client = anthropic.Anthropic(api_key=api_key)
+        client = anthropic.Anthropic(base_url="https://api.deepseek.com/anthropic",api_key=api_key)
         messages = list(history)  # copy
-        messages.append({"role": "user", "content": user_message})
+        messages.append({
+            "role": "user", 
+            "content":[
+                {"type":"text", "text":user_message}
+             ]
+        })
 
         response = client.messages.create(
-            model="claude-sonnet-4-20250514",
+            model="deepseek-flash",
             system=SYSTEM_PROMPT,
             messages=messages,
             max_tokens=1024,
+            extra_body={
+            "reasoning": {"effort": "none"}  # 'none' completely disables thinking blocks
+            }
         )
-        return response.content[0].text
-
+        text_blocks = [block.text for block in response.content if block.type == "text"]
+        final_answer = text_blocks[0] if text_blocks else "No answer text returned"
+        
+        return final_answer
+        
     except ImportError:
         return "⚠️  anthropic package not installed. Run: pip install anthropic"
     except Exception as e:
@@ -126,7 +137,7 @@ def call_gemini(history: List[Dict], user_message: str) -> str:
 
 MODEL_CALLERS = {
     "openai": call_openai,
-    "claude": call_claude,
+    "deepseek": call_deepseek,
     "gemini": call_gemini,
 }
 

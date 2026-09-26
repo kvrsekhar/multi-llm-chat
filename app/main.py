@@ -46,7 +46,7 @@ def continue_with_model():
     Receives the full conversation history and the new user message.
     """
     data = request.get_json()
-    model_key = data.get("model")          # e.g. "claude", "openai", "gemini"
+    model_key = data.get("model")          # e.g. "deepseek", "openai", "gemini"
     history = data.get("history", [])       # List of {role, content} dicts
     user_message = data.get("message", "").strip()
 

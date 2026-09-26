@@ -9,7 +9,7 @@
   --text:        #e8eaf0;
   --muted:       #666b80;
   --openai:      #10A37F;
-  --claude:      #D97757;
+  --deepseek:    #D97757;
   --gemini:      #4285F4;
   --accent:      #7c6af7;
   --radius:      14px;
@@ -31,7 +31,7 @@ body {
 /* ── Header ───────────────────────────────────── */
 .site-header {
   border-bottom: 1px solid var(--border);
-  background: rgba(10,11,14,0.85);
+  background: rgba(30,11,14,0.85);
   backdrop-filter: blur(12px);
   position: sticky; top: 0; z-index: 100;
 }
@@ -45,8 +45,8 @@ body {
 }
 .logo { display: flex; align-items: center; gap: 10px; }
 .logo-icon { font-size: 22px; }
-.logo-text { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; }
-.header-meta { color: var(--muted); font-size: 13px; font-family: 'Space Mono', monospace; }
+.logo-text { font-size: 22px; font-weight: 300; letter-spacing: -0.5px; }
+.header-meta { color: var(--muted); font-size: 15px; font-family: 'Space Mono', monospace; }
 
 /* ── App Shell ────────────────────────────────── */
 .app-shell {
@@ -77,9 +77,9 @@ body {
   letter-spacing: 0.5px;
   border: 1px solid transparent;
 }
-.badge-openai  { color: var(--openai);  border-color: var(--openai);  background: rgba(16,163,127,.08); }
-.badge-claude  { color: var(--claude);  border-color: var(--claude);  background: rgba(217,119,87,.08); }
-.badge-gemini  { color: var(--gemini);  border-color: var(--gemini);  background: rgba(66,133,244,.08); }
+.badge-openai   { color: var(--openai);  border-color: var(--openai);  background: rgba(16,163,127,.08); }
+.badge-deepseek { color: var(--deepseek);  border-color: var(--deepseek);  background: rgba(217,119,87,.08); }
+.badge-gemini   { color: var(--gemini);  border-color: var(--gemini);  background: rgba(66,133,244,.08); }
 
 /* ── Empty State ──────────────────────────────── */
 .empty-state {
@@ -101,7 +101,7 @@ body {
   animation: pulse 3s ease-in-out infinite alternate;
 }
 .orb-1 { background: var(--openai);  left: 0;   top: 20px; animation-delay: 0s; }
-.orb-2 { background: var(--claude);  left: 60px; top: 0;   animation-delay: 0.8s; }
+.orb-2 { background: var(--deepseek);  left: 60px; top: 0;   animation-delay: 0.8s; }
 .orb-3 { background: var(--gemini);  left: 120px; top: 20px; animation-delay: 1.6s; }
 .orb-label {
   position: absolute;
@@ -132,7 +132,7 @@ body {
   animation: spin 0.9s linear infinite;
 }
 .spinner-openai { border-top-color: var(--openai); }
-.spinner-claude { border-top-color: var(--claude); animation-delay: 0.15s; }
+.spinner-claude { border-top-color: var(--deepseek); animation-delay: 0.15s; }
 .spinner-gemini { border-top-color: var(--gemini); animation-delay: 0.3s; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .loading-text { color: var(--muted); font-size: 14px; font-family: 'Space Mono', monospace; }
@@ -165,7 +165,7 @@ body {
   border-bottom: 1px solid var(--border);
 }
 .card-icon { font-size: 18px; }
-.card-title { font-size: 14px; font-weight: 700; }
+.card-title { font-size: 14px; font-weight: 300; }
 .card-body {
   padding: 18px;
   flex: 1;
@@ -188,7 +188,7 @@ body {
   border-radius: 8px;
   border: none;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 300;
   font-family: 'Syne', sans-serif;
   cursor: pointer;
   transition: opacity 0.2s, transform 0.15s;
